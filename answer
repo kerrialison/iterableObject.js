@@ -1,0 +1,52 @@
+/*
+ * Programming Quiz: Make An Iterable Object
+ *
+ * Turn the `james` object into an iterable object.
+ *
+ * Each call to iterator.next should log out an object with the following info:
+ *   - key: the key from the `james` object
+ *   - value: the value of the key from the `james` object
+ *   - done: true or false if there are more keys/values
+ *
+ * For clarification, look at the example console.logs at the bottom of the code.
+ *
+ * Hints:
+ *   - Use `Object.keys()` to store the object's properties in an array.
+ *   - Each call to `iterator.next()` should use this array to know which property to return.
+ *   - You can access the original object using `this`.
+ *   - To access the values of the original object, use `this` and the key from the `Object.keys()` array.
+ */
+ 
+ /*var obj = { 0: 'a', 1: 'b', 2: 'c' };
+console.log(Object.keys(obj)); // console: ['0', '1', '2']*/
+
+
+let james = {
+    name: 'James',
+    height: `5'10"`,
+    weight: 185
+};
+
+james[Symbol.iterator] = function (){
+   const keys = [];
+   for (let key in this) {
+      keys.push({'key':key, 'value':this[key]});
+    }
+  return {
+    next(){
+      let {key,value} = keys.shift();
+      return {value,key,done:keys.length===0};
+    }
+  }
+}
+
+let iterator = james[Symbol.iterator]();
+console.log(iterator.next().value); // 'James'
+console.log(iterator.next().value); // `5'10`
+console.log(iterator.next().value); // 185
+
+// const iterator = james[Symbol.iterator]();
+//
+// console.log(iterator.next().value); // 'James'
+// console.log(iterator.next().value); // `5'10`
+// console.log(iterator.next().value); // 185
