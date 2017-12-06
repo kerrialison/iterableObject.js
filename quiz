@@ -26,3 +26,13 @@ let james = {
     height: `5'10"`,
     weight: 185
 };
+
+/*
+tests:
+*/
+
+// const iterator = james[Symbol.iterator]();
+//
+// console.log(iterator.next().value); // 'James'
+// console.log(iterator.next().value); // `5'10`
+// console.log(iterator.next().value); // 185
